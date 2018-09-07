@@ -1,0 +1,41 @@
+body {
+    overflow-x: hidden !important; 
+}
+
+#topics{
+    margin-bottom: 300px;
+}
+
+.topic-words {
+    display: inline-block;
+    background-color: AliceBlue;
+}
+
+.anchors {
+    display: inline-block;
+    background-color: Lavender;
+}
+
+.word {
+    border-color: black;
+    font-size: x-small;
+}
+
+.anchor {
+    border-color: black;
+    font-size: x-small;
+    z-index: 2;
+    display: inline-block;
+}
+
+#trash {
+    z-index: 1;
+}
+
+.close {
+    padding-left: 5px;
+}
+
+/*.template {
+    display: none;
+}*/

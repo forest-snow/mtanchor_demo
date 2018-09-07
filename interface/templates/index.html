@@ -1,0 +1,90 @@
+<!--  Code adapted from Jeff Lund's Ankura code
+ https://github.com/jefflund/ankura  -->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>MTAnchor</title>
+        <link href="{{ url_for('static', filename='images/favicon.ico') }}" rel='shortcut icon' type='image/x-icon'>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- jQuery/Bootstrap CSS -->
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+
+
+
+    </head>
+    <body>
+        <div class="container" id="topics">
+            <h2 class="text-center mb-4">MTAnchor</h2>
+            <div class="row mb-4">
+                <div class="col-6">
+                    <h4 class="text-left">Language 1</h4>
+                </div>
+                <div class="col-6">
+                    <h4 class="text-right">Language 2</h4>
+                </div>
+            </div>
+            {% for topic in topics %}
+
+            <div class="row mb-4 topic">
+                <i class="fa fa-times fa-large close"></i>
+                <div class="col-3 p-3 l1 topic-words">
+                    {% for word in topic.words1 %}
+                    <span class="btn btn-sm m-1 bg-white l1 word">{{word}}</span>
+                    {% endfor %}
+                </div>
+
+                <div class="col-2 p-3 ml-auto l1 anchors">
+                    {% for anchor in topic.anchors1 %}
+                    <span class="btn btn-sm m-1 bg-white l1 anchor">{{anchor}}<i class="fa fa-times fa-large close"></i></span>
+                    {% endfor %}
+                </div>
+
+                <div class="col-2 p-3 ml-auto l2 anchors">
+                    {% for anchor in topic.anchors2 %}
+                    <span class="btn btn-sm m-1 bg-white l2 anchor">{{anchor}}<i class="fa fa-times fa-large close"></i></span>
+                    {% endfor %}
+                </div>
+
+                <div class="col-3 p-3 ml-auto l2 topic-words">
+                    {% for word in topic.words2 %}
+                    <span class="btn btn-sm m-1 bg-white l2 word">{{word}}</span>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+
+
+        </div>
+
+        <nav class="navbar fixed-bottom navbar-dark bg-dark">
+            <div class="container d-inline-block">
+                <button class="btn btn-light m-2" id="update">Update</button>
+                <button class="btn btn-light m-2" id="add">Add Topic</button>
+                <a href="{{url_for('restart')}}" class="btn btn-light m-2" id="restart">Restart</a>
+                <a href="{{url_for('finish')}}" class="btn btn-light m-2" id="finish">Finish</a>
+
+            </div>
+
+        </nav>
+
+
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+        <script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+        
+
+  </body>
+</html>
