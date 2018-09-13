@@ -9,7 +9,7 @@ stopword_files = {
 }
 
 wiki_shorts_en = {
-    'docs':os.path.join(data_path,'wiki_shorts/en/docs.txt'),
+    'docs':os.path.join(data_path,'wiki_shorts/en/corpus/docs.txt'),
     'labels':os.path.join(data_path,'wiki_shorts/en/labels.txt'),
     'train':os.path.join(data_path,'wiki_shorts/en/splits/train-7730.txt'),
     'test':os.path.join(data_path,'wiki_shorts/en/splits/dev-1104.txt'),
@@ -18,7 +18,7 @@ wiki_shorts_en = {
 }
 
 wiki_shorts_zh = {
-    'docs':os.path.join(data_path,'wiki_shorts/zh/docs.txt'),
+    'docs':os.path.join(data_path,'wiki_shorts/zh/corpus/docs.txt'),
     'labels':os.path.join(data_path,'wiki_shorts/zh/labels.txt'),
     'train':os.path.join(data_path,'wiki_shorts/zh/splits/train-7095.txt'),
     'test':os.path.join(data_path,'wiki_shorts/zh/splits/dev-1013.txt'),

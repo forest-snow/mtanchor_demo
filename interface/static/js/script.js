@@ -88,6 +88,26 @@ $(function(){
         
     });
 
+
+
+    // translating words on mouseover
+    $(".anchor, .word").mouseover(function() {
+        var text = $(this).text();
+
+        // get translation
+        $.get("/translate", {text: text})
+            .done(function(data) {
+                var translation = data['translation'];
+                if (translation !== 'N/A') {
+                  $("#translation").text("Translation: "+translation);
+
+                };
+            });
+        });
+
+
+
+
 });
 
 

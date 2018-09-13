@@ -19,8 +19,11 @@ class Start(db.Model):
     Q1 = db.Column(db.String)
     vocab1 = db.Column(db.String)    
     index1 = db.Column(db.String)
+    dict1 = db.Column(db.String)
     anchors2 = db.Column(db.String)    
     topics2 = db.Column(db.String)    
     Q2 = db.Column(db.String)
     vocab2 = db.Column(db.String)    
-    index2 = db.Column(db.String)  
+    index2 = db.Column(db.String) 
+    dict2 = db.Column(db.String)
+ 

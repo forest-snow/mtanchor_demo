@@ -4,7 +4,7 @@ import anchor_topic.topics
 DEBUG = False
 language1 = 'en'
 language2 = 'zh'
-K=20
+K=3
 SEED=34
 TOP = 15
 
@@ -34,6 +34,8 @@ def start():
     start_data['vocab2'] = data2['vocab']
     start_data['index1'] = data1['index']
     start_data['index2'] = data2['index']
+    start_data['dict1'] = dct['dict1_2']
+    start_data['dict2'] = dct['dict2_1']
 
 
     return start_data

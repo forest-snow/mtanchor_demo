@@ -59,11 +59,13 @@ def data_to_start_obj(start_data):
         Q1 = numpy_to_json(start_data['Q1']),
         vocab1 = to_json(start_data['vocab1']),
         index1 = to_json(start_data['index1']),
+        dict1 = to_json(start_data['dict1']),
         anchors2 = list2d_to_string(start_data['anchors2']),
         topics2 = list2d_to_string(start_data['words2']),
         Q2 = numpy_to_json(start_data['Q2']),
         vocab2 = to_json(start_data['vocab2']),
-        index2 = to_json(start_data['index2'])
+        index2 = to_json(start_data['index2']),
+        dict2 = to_json(start_data['dict2'])
     )
 
     return s
@@ -106,3 +108,8 @@ def data_to_update_obj(data, uid):
         topics2 = list2d_to_string(data['topics2'])
     )
     return u
+
+def start_data_to_dicts(start_data):
+    dict1 = from_json(start_data.dict1)
+    dict2 = from_json(start_data.dict2)
+    return dict1, dict2 

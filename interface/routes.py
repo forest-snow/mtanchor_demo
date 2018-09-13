@@ -1,4 +1,4 @@
-from flask import render_template, request, session, redirect, url_for
+import flask
 from interface import app, db
 from interface.mtanchor import control
 from interface.models import User, Update, Start
@@ -20,44 +20,42 @@ def index():
 
     try:    
         # already have session
-        print(session['uid'])
-        user = User.query.get(session['uid'])
+        print(flask.session['uid'])
+        user = User.query.get(flask.session['uid'])
         update = user.updates.order_by(Update.id.desc()).first()
         topics = convert.db_data_to_topics(update)
 
-    except (KeyError, AttributeError):
+    except(KeyError, AttributeError):
         # no session has started or app falsely thought there was session
         
         # need to create user if not in database
-        if 'uid' not in session:
+        if 'uid' not in flask.session:
             user = User()
             db.session.add(user)
             db.session.commit()
 
         else:
 
-            user = User.query.get(session['uid'])
+            user = User.query.get(flask.session['uid'])
             if user is None:
                 user = User()
                 db.session.add(user)
                 db.session.commit()
 
 
-        session['uid'] = user.id
+        flask.session['uid'] = user.id
 
         start_data = Start.query.first()
 
         topics = convert.db_data_to_topics(start_data)
 
-    print('rendering index\n\n')
-    print(session['uid'])
-    return render_template('index.html', topics=topics)
+    return flask.render_template('index.html', topics=topics)
 
 
 @app.route('/update', methods=['POST'])
 def update():
     # retrieve anchors, update model, save new data in database before redirecting
-    json_data = request.get_json()
+    json_data = flask.request.get_json()
     # need to get Q, vocab, and index from start_data
     start_data = Start.query.first()
 
@@ -67,30 +65,47 @@ def update():
             data = convert.start_data_to_control(start_data)
         )
 
-    update = convert.data_to_update_obj(new_data, session['uid'])
+    update = convert.data_to_update_obj(new_data, flask.session['uid'])
     
     db.session.add(update)
     db.session.commit()
-    return redirect(url_for('index'))
+    return flask.redirect(flask.url_for('index'))
 
 @app.route('/restart')
 def restart():
     print('restarting')
 
-    user = User.query.get(session['uid'])
+    user = User.query.get(flask.session['uid'])
     for update in user.updates:
         db.session.delete(update)
 
     db.session.delete(user)
     db.session.commit()
-    session.clear()
-    return redirect(url_for('index'))
+    flask.session.clear()
+    return flask.redirect(flask.url_for('index'))
 
 @app.route('/finish')
 def finish():
     print('submitting')
-    session.clear()
-    return render_template('finish.html')
+    flask.session.clear()
+    return flask.render_template('finish.html')
+
+
+@app.route('/translate')
+def translate():
+    print('translating')
+    text = flask.request.args.get('text')
+    start_data = Start.query.first()
+    dict1, dict2 = convert.start_data_to_dicts(start_data)
+    if text in dict1:
+        translation = dict1[text]
+    elif text in dict2:
+        translation = dict2[text]
+    else:
+        translation = 'N/A'
+    print(translation)
+    return flask.jsonify(translation=translation)
+
 
 
 
