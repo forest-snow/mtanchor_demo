@@ -11,7 +11,8 @@ $(function(){
     $(".load").hide()
 
     // enable sortable anchor words
-    $(".anchors").sortable({connectWith:".anchors"});
+    $(".l1.anchors").sortable({connectWith:".l1.anchors"});
+    $(".l2.anchors").sortable({connectWith:".l2.anchors"});
 
     // enable draggable words
     var dragOptions = {
@@ -26,29 +27,42 @@ $(function(){
 
 
     // enable words to be dropped in anchor containers
-    var dropOptions = {
-        accept: ".word",
-        drop: function (e, ui){
-            var newClone = $(ui.draggable).clone();
-            newClone.removeClass("word");
-            newClone.addClass("anchor");
-            newClone.append(closeButton);
-            $(this).append(newClone);
-        }
-    };
-    $(".anchors").droppable(dropOptions);
+    var addAnchor = function(e, ui){
+        var newClone = $(ui.draggable).clone();
+        newClone.removeClass("word");
+        newClone.addClass("anchor");
+        newClone.append(closeButton);
+        $(this).append(newClone);
 
-    // triggering close buttons
+    };
+
+    var dropOptions1 = {
+        accept: ".l1.word",
+        drop: addAnchor
+    };
+    $(".l1.anchors").droppable(dropOptions1);
+
+    var dropOptions2 = {
+        accept: ".l2.word",
+        drop: addAnchor
+    };
+    $(".l2.anchors").droppable(dropOptions2);
+
+    // dynamically triggering close buttons
     $("#topics").on("click", ".close", function(){
         $(this).parent().remove();
     });
     
-
-    // add topic 
+    // add topic onto interface
     $("#add").click( function() {
         var topic = $(emptyTopic).clone();
-        var l1anchors = $(anchors).clone().addClass("l1").droppable(dropOptions).sortable({connectWith:".anchors"});
-        var l2anchors = $(anchors).clone().addClass("l2").droppable(dropOptions).sortable({connectWith:".anchors"});
+        var l1anchors = $(anchors).clone()
+            .addClass("l1").droppable(dropOptions1)
+            .sortable({connectWith:".l1.anchors"});
+        var l2anchors = $(anchors).clone()
+            .addClass("l2").droppable(dropOptions2)
+            .sortable({connectWith:".l2.anchors"});
+
         $(topic).append(closeButton);
         $(blank1).clone().appendTo(topic)
         $(topic).append(l1anchors);
@@ -58,7 +72,7 @@ $(function(){
     });
 
 
-
+    // helper function for updating topics
     function pushText(array, textArray){
         $.each(array, function(i, anchors) {
             var texts = [];
@@ -183,6 +197,14 @@ $(function(){
             var text = ui.item.label
             var word = $(emptyWord).clone();
             word.text(text).draggable(dragOptions);
+
+            if(ui.item.language=="l1") {
+                word.addClass("l1")
+            } else {
+                word.addClass("l2")
+            }
+
+            // empty out previous searches
             if($("#new-word").has("word")){
                 $("#new-word").empty();
             }
@@ -193,7 +215,12 @@ $(function(){
                     var translation = data['translation'];
                     if (translation !== 'N/A') {
                         var word = $(emptyWord).clone();
-                        word.text(translation).draggable(dragOptions);
+                        word.text(translation).draggable(dragOptions)
+                            if(ui.item.language=="l1") {
+                                word.addClass("l2")
+                            } else {
+                                word.addClass("l1")
+                            };
                         $("#new-word").append(word);
 
                 };

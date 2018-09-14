@@ -35,7 +35,6 @@ def index():
             db.session.commit()
 
         else:
-
             user = User.query.get(flask.session['uid'])
             if user is None:
                 user = User()
@@ -70,7 +69,6 @@ def update():
     db.session.add(update)
     db.session.commit()
     return "success"
-    # return flask.render_template('load.html')
 
 
 @app.route('/restart')
@@ -112,10 +110,17 @@ def translate():
 def autocomplete():
     start_data = Start.query.first()
     vocab1, vocab2 = convert.start_data_to_vocab(start_data)
-    vocab = vocab1 + vocab2
     query = flask.request.args.get('query')
-    suggestions = [word for word in vocab if word.startswith(query)]
-    limit = min(len(suggestions), 5)
+    suggestions = [];
+    for word in vocab1:
+        if word.startswith(query):
+            suggestions.append({'label':word, 'language':'l1'})
+
+    for word in vocab2:   
+        if word.startswith(query):
+            suggestions.append({'label':word, 'language':'l2'})
+
+    limit = min(len(suggestions), 8)
     choices = suggestions[:limit]
     return flask.jsonify(choices=choices)
 
