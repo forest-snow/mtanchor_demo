@@ -69,10 +69,11 @@ $(function(){
         $(topic).append(l2anchors);
         $(blank2).clone().appendTo(topic)
         $("#topics").append(topic);
+
     });
 
 
-    // helper function for updating topics
+    // helper functions for updating topics
     function pushText(array, textArray){
         $.each(array, function(i, anchors) {
             var texts = [];
@@ -81,19 +82,32 @@ $(function(){
             });
             textArray.push(texts);
         });
-        console.log(textArray)
         return textArray;
-    }
+    };
 
-
+    function checkEmptyTopics(){
+        var anchorArray = $(".anchors").get();
+        var empty = false;
+        $.each(anchorArray, function() {
+            if(($(this).children().length) == 0) {
+                empty = true;
+            }
+        });
+        return empty;
+    };
 
     // updating topics 
     $("#update").click( function(){
+        if(checkEmptyTopics()) {
+            alert("No topic update: make sure each topic has at least one anchor in each language.")
+            return false;
+        }
+        console.log("here")
+
         var l1anchors = []
         var l2anchors = []
         pushText($(".l1.anchors").get(), l1anchors)
         pushText($(".l2.anchors").get(), l2anchors)
-
         var data = {
             "l1":l1anchors,
             "l2":l2anchors
@@ -192,7 +206,7 @@ $(function(){
                 response(choices);
             });
         },
-        // produce new word element and translation element
+        // produce new word element and translation element (if exists in corpus)
         select: function(event, ui) {
             var text = ui.item.label
             var word = $(emptyWord).clone();
@@ -205,9 +219,8 @@ $(function(){
             }
 
             // empty out previous searches
-            if($("#new-word").has("word")){
-                $("#new-word").empty();
-            }
+            $("#new-word").empty();
+            
             $("#new-word").append(word);
 
             $.get("/translate", {text: text})

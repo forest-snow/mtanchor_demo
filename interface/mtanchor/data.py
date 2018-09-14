@@ -117,11 +117,11 @@ def prepare_dictionary(index1, index2, dict_file=dictionary_zh_en):
 
     1. [resource1.dictionary] contains dictionary entries for words  
     in [resource1.corpus.language]. This will be used for translating
-    words on the interface.
+    words on the interface.  Only will contain words in both corpora.
 
     2. [resource2.dictionary] contains dictionary entries for words  
     in [resource2.corpus.language]. This will be used for translating
-    words on the interface.
+    words on the interface. Only will contain words in both corpora.
 
     3. [dictionary] is a index-to-index mapping from language1
     to language2 where entries must contain words in both corpora. 
@@ -138,16 +138,22 @@ def prepare_dictionary(index1, index2, dict_file=dictionary_zh_en):
             
         for w1, w2 in dict_parsed.items():
 
-            if w1 in index1 and w1 not in dict1_2:
-                dict1_2[w1] = w2
+            # if w1 in index1 and w1 not in dict1_2:
+            #     dict1_2[w1] = w2
 
-            if w2 in index2 and w2 not in dict2_1:
-                dict2_1[w2] = w1
+            # if w2 in index2 and w2 not in dict2_1:
+            #     dict2_1[w2] = w1
 
             if w1 in index1 and w2 in index2:
                 i1 = index1[w1]
                 i2 = index2[w2]
                 index_map.append([i1, i2]) 
+
+                if w1 not in dict1_2:
+                    dict1_2[w1] = w2
+                if w2 not in dict2_1:
+                    dict2_1[w2] = w1
+                
     dictionary = {}
     print('Dictionary size: {}'.format(len(index_map)))
     dictionary['index_map'] = index_map
