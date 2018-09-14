@@ -7,6 +7,9 @@ $(function(){
     var blank2 = "<div class='col-3 p-3 ml-auto bg-white'></div>"
     var emptyWord = "<span class='btn btn-sm m-1 word'></span>"
 
+    // hide loader
+    $(".load").hide()
+
     // enable sortable anchor words
     $(".anchors").sortable({connectWith:".anchors"});
 
@@ -68,6 +71,8 @@ $(function(){
         return textArray;
     }
 
+
+
     // updating topics 
     $("#update").click( function(){
         var l1anchors = []
@@ -84,8 +89,22 @@ $(function(){
             url: "/update",
             contentType: 'application/json',
             data: JSON.stringify(data),
-            type: 'POST'
-        })
+            type: 'POST',
+            beforeSend: function() {
+                $("#topics").hide(); 
+                $(".load").show();
+            },
+            complete: function(){
+                $(".load").hide();
+                $("#topics").show();
+            },
+            success: function(result) {
+                if (result == "success") {
+                    location.reload()
+                }
+            }
+
+        });
         
     });
 

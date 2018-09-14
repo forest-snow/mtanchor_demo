@@ -69,7 +69,9 @@ def update():
     
     db.session.add(update)
     db.session.commit()
-    return flask.redirect(flask.url_for('index'))
+    return "success"
+    # return flask.render_template('load.html')
+
 
 @app.route('/restart')
 def restart():
