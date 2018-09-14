@@ -113,3 +113,10 @@ def start_data_to_dicts(start_data):
     dict1 = from_json(start_data.dict1)
     dict2 = from_json(start_data.dict2)
     return dict1, dict2 
+
+def start_data_to_vocab(start_data):
+    vocab1 = from_json(start_data.vocab1)
+    vocab2 = from_json(start_data.vocab2)
+    return vocab1, vocab2
+
+

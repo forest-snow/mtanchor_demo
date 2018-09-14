@@ -1,10 +1,11 @@
 $(function(){
+    // template html elements
     var closeButton = "<i class='fa fa-times fa-large close'></i>"
     var emptyTopic = "<div class='row mb-4 topic template'></div>"
     var anchors = "<div class='col-2 p-3 ml-auto anchors'></div>"
     var blank1 = "<div class='col-3 p-3 bg-white'></div>"
     var blank2 = "<div class='col-3 p-3 ml-auto bg-white'></div>"
-
+    var emptyWord = "<span class='btn btn-sm m-1 word'></span>"
 
     // enable sortable anchor words
     $(".anchors").sortable({connectWith:".anchors"});
@@ -40,7 +41,7 @@ $(function(){
     });
     
 
-
+    // add topic 
     $("#add").click( function() {
         var topic = $(emptyTopic).clone();
         var l1anchors = $(anchors).clone().addClass("l1").droppable(dropOptions).sortable({connectWith:".anchors"});
@@ -91,20 +92,96 @@ $(function(){
 
 
     // translating words on mouseover
-    $(".anchor, .word").mouseover(function() {
-        var text = $(this).text();
+    var mouseOver = function(ev) {
+       var text = $(ev.target).text();
 
         // get translation
         $.get("/translate", {text: text})
             .done(function(data) {
                 var translation = data['translation'];
                 if (translation !== 'N/A') {
-                  $("#translation").text("Translation: "+translation);
+                    $("#translation").text("Translation: "+translation);
+
+                } else {
+                    $("#translation").text("Translation: ");
+                }
+            });
+    };
+
+    $("#topics").on("mouseover", ".anchor, .word", mouseOver)
+
+
+    // highlight ocurrences of word and its translation once clicked
+    var highlight = function (ev) {
+        var text = $(ev.target).text();
+        console.log(text)
+
+        // unhighlight previous words
+        $(".highlight").removeClass("highlight");
+
+        // highlight words with same text
+        $(".word, .anchor").filter( function() { 
+            return ($(this).text() === text)
+        })
+            .addClass("highlight");
+
+        // highlight translations
+
+        $.get("/translate", {text: text})
+            .done(function(data) {
+                var translation = data['translation'];
+                if (translation !== 'N/A') {
+                    $(".word, .anchor").filter( function() { 
+                        return ($(this).text() === translation)
+                    })
+                        .addClass("highlight");
+
 
                 };
             });
-        });
 
+    };
+    
+    $("#topics").on("click", ".anchor, .word", highlight);
+
+
+    // autocomplete
+    $("#search").autocomplete({
+        minLength: 3,
+        delay: 500,
+        position: {my: "left bottom", at: "left top"},
+        // callback to get word choices 
+        source: function(request, response) {
+            $.get("/autocomplete", {
+                query: request.term
+            }, function(data) {
+                var choices = data["choices"];
+                response(choices);
+            });
+        },
+        // produce new word element and translation element
+        select: function(event, ui) {
+            var text = ui.item.label
+            var word = $(emptyWord).clone();
+            word.text(text).draggable(dragOptions);
+            if($("#new-word").has("word")){
+                $("#new-word").empty();
+            }
+            $("#new-word").append(word);
+
+            $.get("/translate", {text: text})
+                .done(function(data) {
+                    var translation = data['translation'];
+                    if (translation !== 'N/A') {
+                        var word = $(emptyWord).clone();
+                        word.text(translation).draggable(dragOptions);
+                        $("#new-word").append(word);
+
+                };
+            });
+
+        }
+    });
 
 
 

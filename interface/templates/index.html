@@ -39,42 +39,53 @@
                 <i class="fa fa-times fa-large close"></i>
                 <div class="col-3 p-3 l1 topic-words">
                     {% for word in topic.words1 %}
-                    <span class="btn btn-sm m-1 bg-white l1 word">{{word}}</span>
+                    <span class="btn btn-sm m-1 l1 word">{{word}}</span>
                     {% endfor %}
                 </div>
 
                 <div class="col-2 p-3 ml-auto l1 anchors">
                     {% for anchor in topic.anchors1 %}
-                    <span class="btn btn-sm m-1 bg-white l1 anchor">{{anchor}}<i class="fa fa-times fa-large close"></i></span>
+                    <span class="btn btn-sm m-1 l1 anchor">{{anchor}}<i class="fa fa-times fa-large close"></i></span>
                     {% endfor %}
                 </div>
 
                 <div class="col-2 p-3 ml-auto l2 anchors">
                     {% for anchor in topic.anchors2 %}
-                    <span class="btn btn-sm m-1 bg-white l2 anchor">{{anchor}}<i class="fa fa-times fa-large close"></i></span>
+                    <span class="btn btn-sm m-1 l2 anchor">{{anchor}}<i class="fa fa-times fa-large close"></i></span>
                     {% endfor %}
                 </div>
 
                 <div class="col-3 p-3 ml-auto l2 topic-words">
                     {% for word in topic.words2 %}
-                    <span class="btn btn-sm m-1 bg-white l2 word">{{word}}</span>
+                    <span class="btn btn-sm m-1 l2 word">{{word}}</span>
                     {% endfor %}
                 </div>
             </div>
             {% endfor %}
 
-
+            <!-- <input id="search" class="form-control form-control-sm" type="text" placeholder="Search words"> -->
         </div>
 
         <nav class="navbar fixed-bottom navbar-dark bg-dark">
-            <div class="container d-inline-block">
-                <button class="btn btn-light m-2" id="update">Update</button>
-                <button class="btn btn-light m-2" id="add">Add Topic</button>
-                <a href="{{url_for('restart')}}" class="btn btn-light m-2" id="restart">Restart</a>
-                <a href="{{url_for('finish')}}" class="btn btn-light m-2" id="finish">Finish</a>
-                <h4 id="translation" class="navbar-text text-white ml-4">
-                    Translation:
-                </h4>
+            <div class="container">
+                <div class="col-4 d-inline-block">
+                    <button class="btn btn-sm btn-light m-2" id="update">Update</button>
+                    <button class="btn btn-sm btn-light m-2" id="add">Add Topic</button>
+                    <a href="{{url_for('restart')}}" class="btn btn-sm btn-light m-2" id="restart">Restart</a>
+                    <!-- <a href="{{url_for('finish')}}" class="btn btn-sm btn-light m-2" id="finish">Finish</a> -->
+                </div>
+                <div class="col-4 d-inline-block">
+                    <h5 id="translation" class="navbar-text text-white ml-4">
+                        Translation:
+                    </h5>
+                </div>
+                <div class="col-2 d-inline-block">
+                    <input id="search" class="form-control form-control-sm" type="text" placeholder="Search words">
+                </div>
+
+                <div id="new-word" class="col-2 d-inline-block">
+                </div>
+
             </div>
 
         </nav>

@@ -19,6 +19,7 @@ body {
 .word {
     border-color: black;
     font-size: x-small;
+    background-color: White;
 }
 
 .anchor {
@@ -26,13 +27,17 @@ body {
     font-size: x-small;
     z-index: 2;
     display: inline-block;
-}
-
-#trash {
-    z-index: 1;
+    background-color: White;
 }
 
 .close {
     padding-left: 5px;
 }
 
+.highlight{
+    background-color: #FCF3CF;
+}
+
+.ui-autocomplete {
+    z-index: 2000 !important
+};

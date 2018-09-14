@@ -106,6 +106,16 @@ def translate():
     print(translation)
     return flask.jsonify(translation=translation)
 
+@app.route('/autocomplete')
+def autocomplete():
+    start_data = Start.query.first()
+    vocab1, vocab2 = convert.start_data_to_vocab(start_data)
+    vocab = vocab1 + vocab2
+    query = flask.request.args.get('query')
+    suggestions = [word for word in vocab if word.startswith(query)]
+    limit = min(len(suggestions), 5)
+    choices = suggestions[:limit]
+    return flask.jsonify(choices=choices)
 
 
 
