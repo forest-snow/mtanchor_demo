@@ -33,6 +33,9 @@ flask run
 # Memory space
 The demo uses a SQLite database (stored in your local files) to save data.  Since this is only a demo, only top 1000 words from each corpus is included in the vocabulary.  The demo doesn't let user submit their results to prevent database from getting too large. It is also recommended to limit number of topics (no more than 20) so that database remains small.
 
+# See also
+Interface was initially based upon Jeff Lund's [tbuie interface](https://github.com/byu-aml-lab/tbuie).
+
 # Citation
 ```sh
 @inproceedings{yuan2018mtanchor,
@@ -42,3 +45,7 @@ The demo uses a SQLite database (stored in your local files) to save data.  Sinc
   year={2018}
 }
 ```
+# License
+Copyright (C) 2018, Michelle Yuan
+
+Licensed under the terms of the MIT License. A full copy of the license can be found in LICENSE.txt.
