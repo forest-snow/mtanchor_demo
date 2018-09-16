@@ -3,10 +3,11 @@
 Repository contains demo code for MTAnchor, an interactive, multilingual topic modeling system.  The code accompanies the paper _Multilingual Anchoring: Interactive Topic Modeling and Alignment Across Languages_ (Yuan et al., 2018).
 
 # Dependencies
+- Python 3
 - Numpy
 - Scipy
 - Flask (0.12)
-- Anchor-topic 
+- [Anchor-topic](https://github.com/forest-snow/anchor-topic) 
 - Scikit-learn
 
 All above packages can be installed with ```pip install```.
