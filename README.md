@@ -3,25 +3,22 @@
 Repository contains demo code for MTAnchor, an interactive, multilingual topic modeling system.  The code accompanies the paper _Multilingual Anchoring: Interactive Topic Modeling and Alignment Across Languages_ (Yuan et al., 2018).
 
 # Dependencies
+- Python 3
 - Numpy
 - Scipy
-- Flask (0.12)
-- Anchor-topic 
 - Scikit-learn
+- Flask 
+- [Anchor-topic](https://github.com/forest-snow/anchor-topic) 
 
 All above packages can be installed with ```pip install```.
 
 # Setup
 - Clone repository
-- Type following commands to start session:
-```sh
-export FLASK_APP=run.py
-flask run
-```
-- Go to ```http://127.0.0.1:5000/``` in your browser
+- Run ```mtanchor.sh```
 
 # Usage
 - **Read** over _Multilingual Anchoring: Interactive Topic Modeling and Alignment Across Languages_ to understand how MTAnchor works.
+- **Look** at the most likely words for each topic in the blue boxes and the anchor words in the purple boxes. 
 - **Move** words from blue boxes to purple boxes to add them as anchors (note that interface will not let you mix words from languages).  You may also remove words from the purple boxes to delete them as anchors.
 - **Hover** over words to see their translation (if available).
 - **Click** on words to see occurrences of words and their translations highlighted across the interface.
@@ -31,7 +28,10 @@ flask run
 - **Restart** your progress if you want to start over.
 
 # Memory space
-The demo uses a SQLite database (stored in your local files) to save data.  Since this is only a demo, only top 1000 words from each corpus is included in the vocabulary.  The demo doesn't let user submit their results to prevent database from getting too large. It is also recommended to limit number of topics (no more than 20) so that database remains small.
+The demo uses a SQLite database (stored in your local files) to save data.  Since this is only a demo, only top 1000 words from each corpus is included in the vocabulary.  The demo doesn't let user submit their results to prevent database from getting too large. If you find that the database is taking up too much space, run ```delete_db.sh``` to delete all data from the database.
+
+# See also
+Interface was initially based upon Jeff Lund's [tbuie interface](https://github.com/byu-aml-lab/tbuie).
 
 # Citation
 ```sh
@@ -42,3 +42,7 @@ The demo uses a SQLite database (stored in your local files) to save data.  Sinc
   year={2018}
 }
 ```
+# License
+Copyright (C) 2018, Michelle Yuan
+
+Licensed under the terms of the MIT License. A full copy of the license can be found in LICENSE.
