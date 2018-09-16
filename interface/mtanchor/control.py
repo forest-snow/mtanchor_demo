@@ -19,8 +19,8 @@ def start():
         k=K,
         threshold1=0.008,
         threshold2=0.008,
-        seed=SEED,
-        dictionary=dct['index_map']
+        dictionary=dct['index_map'],
+        seed=SEED
     )
 
     start_data = {}
