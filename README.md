@@ -8,13 +8,17 @@ Repository contains demo code for MTAnchor, an interactive, multilingual topic m
 - Scipy
 - Scikit-learn
 - Flask 
+- Flask_sqlalchemy 
+- Flask_migrate 
 - [Anchor-topic](https://github.com/forest-snow/anchor-topic) 
 
 All above packages can be installed with ```pip install```.
 
 # Setup
 - Clone repository
-- Run ```mtanchor.sh```
+- Install dependencies: ```pip install -r requirements.txt```
+- Run bash script ```mtanchor.sh```
+- End app with ```Ctrl+C```
 
 # Usage
 - **Read** over _Multilingual Anchoring: Interactive Topic Modeling and Alignment Across Languages_ to understand how MTAnchor works.

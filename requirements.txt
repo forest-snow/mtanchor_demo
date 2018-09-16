@@ -1,0 +1,7 @@
+scipy
+numpy
+scikit-learn
+flask=1.0
+flask_sqlalchemy
+flask_migrate
+anchor-topic
