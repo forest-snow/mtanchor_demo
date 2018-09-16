@@ -6,9 +6,9 @@ Repository contains demo code for MTAnchor, an interactive, multilingual topic m
 - Python 3
 - Numpy
 - Scipy
-- Flask (0.12)
-- [Anchor-topic](https://github.com/forest-snow/anchor-topic) 
 - Scikit-learn
+- Flask 
+- [Anchor-topic](https://github.com/forest-snow/anchor-topic) 
 
 All above packages can be installed with ```pip install```.
 
@@ -17,12 +17,14 @@ All above packages can be installed with ```pip install```.
 - Type following commands to start session:
 ```sh
 export FLASK_APP=run.py
+export FLASK_ENV=development
 flask run
 ```
 - Go to ```http://127.0.0.1:5000/``` in your browser
 
 # Usage
 - **Read** over _Multilingual Anchoring: Interactive Topic Modeling and Alignment Across Languages_ to understand how MTAnchor works.
+- **Look** at the most likely words for each topic in the blue boxes and the anchor words in the purple boxes. 
 - **Move** words from blue boxes to purple boxes to add them as anchors (note that interface will not let you mix words from languages).  You may also remove words from the purple boxes to delete them as anchors.
 - **Hover** over words to see their translation (if available).
 - **Click** on words to see occurrences of words and their translations highlighted across the interface.
@@ -49,4 +51,4 @@ Interface was initially based upon Jeff Lund's [tbuie interface](https://github.
 # License
 Copyright (C) 2018, Michelle Yuan
 
-Licensed under the terms of the MIT License. A full copy of the license can be found in LICENSE.txt.
+Licensed under the terms of the MIT License. A full copy of the license can be found in LICENSE.
