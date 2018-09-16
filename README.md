@@ -14,13 +14,7 @@ All above packages can be installed with ```pip install```.
 
 # Setup
 - Clone repository
-- Type following commands to start session:
-```sh
-export FLASK_APP=run.py
-export FLASK_ENV=development
-flask run
-```
-- Go to ```http://127.0.0.1:5000/``` in your browser
+- Run ```mtanchor.sh```
 
 # Usage
 - **Read** over _Multilingual Anchoring: Interactive Topic Modeling and Alignment Across Languages_ to understand how MTAnchor works.
@@ -34,7 +28,7 @@ flask run
 - **Restart** your progress if you want to start over.
 
 # Memory space
-The demo uses a SQLite database (stored in your local files) to save data.  Since this is only a demo, only top 1000 words from each corpus is included in the vocabulary.  The demo doesn't let user submit their results to prevent database from getting too large. It is also recommended to limit number of topics (no more than 20) so that database remains small.
+The demo uses a SQLite database (stored in your local files) to save data.  Since this is only a demo, only top 1000 words from each corpus is included in the vocabulary.  The demo doesn't let user submit their results to prevent database from getting too large. If you find that the database is taking up too much space, run ```delete_db.sh``` to delete all data from the database.
 
 # See also
 Interface was initially based upon Jeff Lund's [tbuie interface](https://github.com/byu-aml-lab/tbuie).
