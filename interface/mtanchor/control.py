@@ -4,8 +4,8 @@ import anchor_topic.topics
 DEBUG = False
 language1 = 'en'
 language2 = 'zh'
-K=3
-SEED=34
+K = 5
+SEED = 34
 TOP = 15
 
 

@@ -194,7 +194,7 @@ $(function(){
 
     // autocomplete
     $("#search").autocomplete({
-        minLength: 3,
+        minLength: 1,
         delay: 500,
         position: {my: "left bottom", at: "left top"},
         // callback to get word choices 

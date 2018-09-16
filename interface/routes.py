@@ -20,7 +20,6 @@ def index():
 
     try:    
         # already have session
-        print(flask.session['uid'])
         user = User.query.get(flask.session['uid'])
         update = user.updates.order_by(Update.id.desc()).first()
         topics = convert.db_data_to_topics(update)
