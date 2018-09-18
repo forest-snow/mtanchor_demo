@@ -18,6 +18,7 @@ All above packages can be installed with ```pip install```.
 - Clone repository
 - Install dependencies: ```pip install -r requirements.txt```
 - Run bash script ```mtanchor.sh```
+- Go to ```http://127.0.0.1:5000/``` in your browser
 
 ## Usage
 - **Read** over _Multilingual Anchoring: Interactive Topic Modeling and Alignment Across Languages_ to understand how MTAnchor works.
