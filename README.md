@@ -36,6 +36,9 @@ All above packages can be installed with ```pip install```.
 ## Memory space
 The demo uses a SQLite database (stored in your local files) to save data.  Since this is only a demo, only top 1000 words from each corpus is included in the vocabulary.  The demo doesn't let user submit their results to prevent database from getting too large. If you find that the database is taking up too much space, run ```delete_db.sh``` to delete all data from the database.
 
+## Data
+If you want the Wikipedia data used in the experiments, you may download it [here](https://github.com/forest-snow/mtanchor_demo/raw/master/wiki_shorts.zip).  The dataset contains Chinese and English Wikipedia articles that are labeled in one of six categories: film, music, animals, politics, religion, and food.   Please cite this paper if you use the data.
+
 ## See also
 - Interface was initially based upon Jeff Lund's [tbuie interface](https://github.com/byu-aml-lab/tbuie).
 - Topic model is built using code from [anchor-topic](https://github.com/forest-snow/anchor-topic) package.
