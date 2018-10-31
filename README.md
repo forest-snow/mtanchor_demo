@@ -1,6 +1,6 @@
 # MTAnchor
 
-Repository contains demo code for MTAnchor, an interactive, multilingual topic modeling system.  The code accompanies the paper _Multilingual Anchoring: Interactive Topic Modeling and Alignment Across Languages_ (Yuan et al., 2018).
+Repository contains demo code for MTAnchor, an interactive, multilingual topic modeling system.  The code accompanies the paper [_Multilingual Anchoring: Interactive Topic Modeling and Alignment Across Languages_ (Yuan et al., 2018)](http://www.cs.umd.edu/~myuan/docs/2018_nips_mtanchor.pdf).
 
 ## Dependencies
 - Python 3
@@ -22,7 +22,6 @@ All above packages can be installed with ```pip install```.
 - Go to ```http://127.0.0.1:5000/``` in your browser
 
 ## Usage
-- **Read** over _Multilingual Anchoring: Interactive Topic Modeling and Alignment Across Languages_ to understand how MTAnchor works.
 - **Look** at the most likely words for each topic in the blue boxes and the anchor words in the purple boxes. 
 - **Move** words from blue boxes to purple boxes to add them as anchors (note that interface will not let you mix words from languages).  You may also remove words from the purple boxes to delete them as anchors.
 - **Hover** over words to see their translation (if available).
