@@ -142,10 +142,15 @@ def prepare_dictionary(index1, index2, dict_file=dictionary_zh_en):
                 i2 = index2[w2]
                 index_map.append([i1, i2]) 
 
-                if w1 not in dict1_2:
-                    dict1_2[w1] = w2
-                if w2 not in dict2_1:
-                    dict2_1[w2] = w1
+                # if w1 not in dict1_2:
+                #     dict1_2[w1] = w2
+                # if w2 not in dict2_1:
+                #     dict2_1[w2] = w1
+            if w1 in index1:
+                dict1_2[w1] = w2
+            if w2 in index2:
+                dict2_1[w2] = w1
+
                 
     dictionary = {}
     print('Dictionary size: {}'.format(len(index_map)))

@@ -143,7 +143,7 @@ $(function(){
        var text = $(ev.target).text();
 
         // get translation
-        $.get("/translate", {text: text})
+        $.get("/translate", {text: text, in_corpus:false})
             .done(function(data) {
                 var translation = data['translation'];
                 if (translation !== 'N/A') {
@@ -174,7 +174,7 @@ $(function(){
 
         // highlight translations
 
-        $.get("/translate", {text: text})
+        $.get("/translate", {text: text, in_corpus:false})
             .done(function(data) {
                 var translation = data['translation'];
                 if (translation !== 'N/A') {
@@ -223,7 +223,7 @@ $(function(){
             
             $("#new-word").append(word);
 
-            $.get("/translate", {text: text})
+            $.get("/translate", {text: text, in_corpus:true})
                 .done(function(data) {
                     var translation = data['translation'];
                     if (translation !== 'N/A') {
