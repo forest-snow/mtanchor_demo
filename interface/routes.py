@@ -99,9 +99,7 @@ def translate():
     dict1, dict2 = convert.start_data_to_dicts(start_data)
     vocab1, vocab2 = convert.start_data_to_vocab(start_data)
     if text in dict1:
-        print('text', text)
         translation = dict1[text]
-        print('here', translation)
         if in_corpus and translation not in vocab2:
             translation = 'N/A'
     elif text in dict2:
@@ -110,7 +108,6 @@ def translate():
             translation = 'N/A'
     else:
         translation = 'N/A'
-    print(translation)
     return flask.jsonify(translation=translation)
 
 @app.route('/autocomplete')
