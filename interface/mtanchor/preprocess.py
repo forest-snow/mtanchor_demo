@@ -26,6 +26,16 @@ def tokenize_zh(text):
     chinese_tokens = [token for token in filtered_tokens if token != '']
     return chinese_tokens
 
+def tokenize_ru(text):
+    """A basic Russian tokenizer which splits and does basic filtering.
+    The included filters and transformations include:
+    * filter out non-Russian characters for Russian
+    """
+    tokens = text.split()
+    filtered_tokens = [re.sub(r'[^\u0400-\u04ff]', '', token) for token in tokens]
+    russian_tokens = [token for token in filtered_tokens if token != '']
+    return russian_tokens
+
 def sparse_tranpose(doc_word):
     # Construct as COO matrix and then convert to CSC for sake of time
     doc_word_sparse = scipy.sparse.coo_matrix(doc_word)
@@ -43,8 +53,12 @@ def vectorize(docs_train, stopwords, language, max_vocab, max_df, docs_dev=None,
 
     if language == 'en':
         tokenizer = tokenize_en
-    else:
+    elif language == 'zh':
         tokenizer = tokenize_zh
+    elif language == 'ru':
+        tokenizer = tokenize_ru
+    else:
+        raise Exception('Language ' +language + ' not supported.')
 
 
     cv = CountVectorizer(tokenizer=tokenizer, 

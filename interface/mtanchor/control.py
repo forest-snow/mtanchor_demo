@@ -1,16 +1,16 @@
 from . import data, utils 
 import anchor_topic.topics
 
-DEBUG = False
+DEBUG = True
 language1 = 'en'
-language2 = 'zh'
+language2 = 'ru'
 K = 5
 SEED = 34
 TOP = 15
 
 
 def start():
-    data1, data2 = data.wiki_data(language1, language2, DEBUG)
+    data1, data2 = data.lorelei_data(language2, DEBUG)
     dct = data.prepare_dictionary(data1['index'], data2['index'])
 
     A1, A2, Q1, Q2, anchors1, anchors2 = anchor_topic.topics.model_multi_topics(

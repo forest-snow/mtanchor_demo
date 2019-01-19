@@ -5,7 +5,8 @@ data_path = '/Users/myuan/data/'
 
 stopword_files = {
     'en':os.path.join(data_path,'stopwords/stopwords_en.txt'),
-    'zh':os.path.join(data_path,'stopwords/stopwords_zh.txt')
+    'zh':os.path.join(data_path,'stopwords/stopwords_zh.txt'),
+    'ru':os.path.join(data_path,'stopwords/stopwords_ru.txt')
 }
 
 wiki_shorts_en = {
@@ -26,9 +27,31 @@ wiki_shorts_zh = {
     'max_df':0.07
 }
 
+lorelei_ru = {}
+
+lorelei_ru['ru'] = {
+    'docs':os.path.join(data_path,'lorelei/il8/ru/corpus.txt'),
+    'labels':os.path.join(data_path,'lorelei/il8/ru/labels.txt'),
+    'train':os.path.join(data_path,'lorelei/il8/ru/splits/train-401.txt'),
+    'test':os.path.join(data_path,'lorelei/il8/ru/splits/test-37.txt'),
+    'max_vocab':1000,
+    'max_df':1.0    
+}
+
+lorelei_ru['en'] = {
+    'docs':os.path.join(data_path,'lorelei/il8/en/corpus.txt'),
+    'labels':os.path.join(data_path,'lorelei/il8/en/labels.txt'),
+    'train':os.path.join(data_path,'lorelei/il8/en/splits/train-8096.txt'),
+    'test':os.path.join(data_path,'lorelei/il8/en/splits/test-172.txt'),
+    'max_vocab':1000,
+    'max_df':1.0    
+}
+
 wiki_shorts = {'en': wiki_shorts_en, 'zh': wiki_shorts_zh}
+lorelei = {'ru': lorelei_ru}
 
 dictionary_zh_en = os.path.join(data_path,'dictionary/cedict.txt')
+dictionary_ru_en = os.path.join(data_path,'lorelei/il8/ru_en_dict.txt')
 
 def read_text(file, num=False):
     """ Read from txt [file].
@@ -105,9 +128,16 @@ def wiki_data(language1='en', language2='zh', debug=False):
     data2 = prepare_data(wiki_shorts['zh'], language2, debug)
     return data1, data2
 
+def lorelei_data(language='ru', debug=False):
+    dataset = lorelei[language]
+    data1 = prepare_data(dataset['en'], 'en', debug)
+    data2 = prepare_data(dataset[language], language, debug)
+    return data1, data2 
+
+
 # After getting data, get dictionary #
 
-def prepare_dictionary(index1, index2, dict_file=dictionary_zh_en):
+def prepare_dictionary(index1, index2, dict_file=dictionary_ru_en):
     """
     Set up dictionaries for MTAnchor system.
 
@@ -142,10 +172,7 @@ def prepare_dictionary(index1, index2, dict_file=dictionary_zh_en):
                 i2 = index2[w2]
                 index_map.append([i1, i2]) 
 
-                # if w1 not in dict1_2:
-                #     dict1_2[w1] = w2
-                # if w2 not in dict2_1:
-                #     dict2_1[w2] = w1
+
             if w1 in index1:
                 dict1_2[w1] = w2
             if w2 in index2:
