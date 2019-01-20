@@ -34,8 +34,8 @@ lorelei_ru['ru'] = {
     'labels':os.path.join(data_path,'lorelei/il8/ru/labels.txt'),
     'train':os.path.join(data_path,'lorelei/il8/ru/splits/train-401.txt'),
     'dev':os.path.join(data_path,'lorelei/il8/ru/splits/dev-37.txt'),
-    'max_vocab':6000,
-    'max_df':0.7    
+    'max_vocab':5000,
+    'max_df':0.5    
 }
 
 lorelei_ru['en'] = {
@@ -43,8 +43,8 @@ lorelei_ru['en'] = {
     'labels':os.path.join(data_path,'lorelei/il8/en/labels.txt'),
     'train':os.path.join(data_path,'lorelei/il8/en/splits/train-8096.txt'),
     'dev':os.path.join(data_path,'lorelei/il8/en/splits/dev-172.txt'),
-    'max_vocab':6000,
-    'max_df':0.6    
+    'max_vocab':5000,
+    'max_df':0.4    
 }
 
 wiki_shorts = {'en': wiki_shorts_en, 'zh': wiki_shorts_zh}

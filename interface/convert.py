@@ -45,7 +45,6 @@ def from_json(j):
     return obj
 
 def numpy_to_json(array):
-    print(type(array))
     l = array.tolist()
     return to_json(l)
 

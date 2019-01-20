@@ -6,7 +6,7 @@ from sklearn.metrics import f1_score
 
 
 
-DEBUG = True
+DEBUG = False
 language1 = 'en'
 language2 = 'ru'
 K = 10
@@ -47,8 +47,6 @@ def start():
     start_data['Y_dev1'] = data1['labels_dev']
     start_data['Y_dev2'] = data2['labels_dev']
 
-
-    print('evaluating')
     scores = evaluate(A1, A2, start_data)
     start_data['intra1'] = scores['intra1']
     start_data['cross1'] = scores['cross1']
@@ -87,14 +85,13 @@ def infer_topics(word_doc, word_topic):
     return infer.variational_bayes(word_doc, topic_word)
 
 def train_classifier(X, Y):
-    print('train classifier')
     clf = LinearSVC(class_weight = 'balanced', dual=False, random_state=SEED)
     clf.fit(X, Y)
     return clf
 
 def score(label, prediction):
     score = f1_score(label, prediction, average='micro')
-    return '{0:.2f}'.format(score)
+    return '{0:.2f}'.format(score*100)
 
 def evaluate(A1, A2, data):
     # infer topics from word_doc

@@ -1,8 +1,11 @@
 from interface import db
+from datetime import datetime
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     updates = db.relationship('Update', backref='user', lazy='dynamic')
+    time = db.Column(db.DateTime, default=datetime.utcnow)
+
 
 class Update(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -15,6 +18,7 @@ class Update(db.Model):
     cross1 = db.Column(db.String)
     intra2 = db.Column(db.String)
     cross2 = db.Column(db.String)
+    time = db.Column(db.DateTime, default=datetime.utcnow)
 
 class Start(db.Model):
     id = db.Column(db.Integer, primary_key=True)
