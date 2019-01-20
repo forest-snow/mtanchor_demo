@@ -23,6 +23,7 @@ def index():
         user = User.query.get(flask.session['uid'])
         update = user.updates.order_by(Update.id.desc()).first()
         topics = convert.db_data_to_topics(update)
+        scores = convert.db_data_to_scores(update)
 
     except(KeyError, AttributeError):
         # no session has started or app falsely thought there was session

@@ -50,10 +50,10 @@ def start():
 
     print('evaluating')
     scores = evaluate(A1, A2, start_data)
-    start_data['intra1'] = '{0:.2f}'.format(scores['intra1'])
-    start_data['cross1'] = '{0:.2f}'.format(scores['cross1'])
-    start_data['intra2'] = '{0:.2f}'.format(scores['intra2'])
-    start_data['cross2'] = '{0:.2f}'.format(scores['cross2'])
+    start_data['intra1'] = scores['intra1']
+    start_data['cross1'] = scores['cross1']
+    start_data['intra2'] = scores['intra2']
+    start_data['cross2'] = scores['cross2']
 
     return start_data
 
@@ -65,11 +65,16 @@ def update(anchors1, anchors2, data):
     A1 = anchor_topic.topics.update_topics(data['Q1'], anchor_nums1)
     A2 = anchor_topic.topics.update_topics(data['Q2'], anchor_nums2)
 
+    scores = evaluate(A1, A2, data)
 
     data['topics1'] = utils.get_top_topic_words(A1, TOP, data['vocab1'])
     data['anchors1'] = anchors1
     data['topics2'] = utils.get_top_topic_words(A2, TOP, data['vocab2'])
     data['anchors2'] = anchors2
+    data['intra1'] = scores['intra1']
+    data['cross1'] = scores['cross1']
+    data['intra2'] = scores['intra2']
+    data['cross2'] = scores['cross2']
 
     return data
 
@@ -87,6 +92,9 @@ def train_classifier(X, Y):
     clf.fit(X, Y)
     return clf
 
+def score(label, prediction):
+    score = f1_score(label, prediction, average='micro')
+    return '{0:.2f}'.format(score)
 
 def evaluate(A1, A2, data):
     # infer topics from word_doc
@@ -102,8 +110,8 @@ def evaluate(A1, A2, data):
     Y_intra2 = clf2.predict(X2)
     Y_cross2 = clf2.predict(X1)
 
-    scores['intra1'] = f1_score(data['Y_dev1'], Y_intra1, average='micro')
-    scores['cross1'] = f1_score(data['Y_dev2'], Y_cross1, average='micro')
-    scores['intra2'] = f1_score(data['Y_dev2'], Y_intra2, average='micro')
-    scores['cross2'] = f1_score(data['Y_dev1'], Y_cross2, average='micro')
+    scores['intra1'] = score(data['Y_dev1'], Y_intra1)
+    scores['cross1'] = score(data['Y_dev2'], Y_cross1)
+    scores['intra2'] = score(data['Y_dev2'], Y_intra2)
+    scores['cross2'] = score(data['Y_dev1'], Y_cross2)
     return scores 

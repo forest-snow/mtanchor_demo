@@ -129,8 +129,8 @@ def start_data_to_control(start_data):
     data['Q2'] = json_to_numpy(start_data.Q2)
     data['M_dev1'] = json_to_scipy(start_data.M_dev1)
     data['M_dev2'] = json_to_scipy(start_data.M_dev2)
-    data['Y_dev1'] = json_to_numpy(start_data.Y_dev1)
-    data['Y_dev2'] = json_to_numpy(start_data.Y_dev2)
+    data['Y_dev1'] = from_json(start_data.Y_dev1)
+    data['Y_dev2'] = from_json(start_data.Y_dev2)
     return data
 
 def data_to_update_obj(data, uid):
@@ -139,7 +139,11 @@ def data_to_update_obj(data, uid):
         anchors1 = list2d_to_string(data['anchors1']), 
         topics1 = list2d_to_string(data['topics1']), 
         anchors2 = list2d_to_string(data['anchors2']), 
-        topics2 = list2d_to_string(data['topics2'])
+        topics2 = list2d_to_string(data['topics2']),
+        intra1 = data['intra1'],
+        cross1 = data['cross1'],
+        intra2 = data['intra2'],
+        cross2 = data['cross2'],
     )
     return u
 

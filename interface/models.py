@@ -11,6 +11,10 @@ class Update(db.Model):
     topics1 = db.Column(db.String)
     topics2 = db.Column(db.String)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    intra1 = db.Column(db.String)
+    cross1 = db.Column(db.String)
+    intra2 = db.Column(db.String)
+    cross2 = db.Column(db.String)
 
 class Start(db.Model):
     id = db.Column(db.Integer, primary_key=True)
