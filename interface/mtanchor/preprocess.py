@@ -69,6 +69,9 @@ def vectorize(docs_train, stopwords, language, max_vocab, max_df, docs_dev=None,
     index = utils.numpy_to_int_dict(cv.vocabulary_)
     vocab = cv.get_feature_names()
 
+    word_doc_dev = None
+    word_doc_test = None
+
     if docs_dev is not None:
         doc_word_dev = cv.transform(doc for doc in docs_dev)
         word_doc_dev = sparse_tranpose(doc_word_dev)

@@ -13,7 +13,7 @@ wiki_shorts_en = {
     'docs':os.path.join(data_path,'wiki_shorts/en/corpus/docs.txt'),
     'labels':os.path.join(data_path,'wiki_shorts/en/labels.txt'),
     'train':os.path.join(data_path,'wiki_shorts/en/splits/train-7730.txt'),
-    'test':os.path.join(data_path,'wiki_shorts/en/splits/dev-1104.txt'),
+    'dev':os.path.join(data_path,'wiki_shorts/en/splits/dev-1104.txt'),
     'max_vocab':1000,
     'max_df':0.07
 }
@@ -22,7 +22,7 @@ wiki_shorts_zh = {
     'docs':os.path.join(data_path,'wiki_shorts/zh/corpus/docs.txt'),
     'labels':os.path.join(data_path,'wiki_shorts/zh/labels.txt'),
     'train':os.path.join(data_path,'wiki_shorts/zh/splits/train-7095.txt'),
-    'test':os.path.join(data_path,'wiki_shorts/zh/splits/dev-1013.txt'),
+    'dev':os.path.join(data_path,'wiki_shorts/zh/splits/dev-1013.txt'),
     'max_vocab':1000,
     'max_df':0.07
 }
@@ -33,18 +33,18 @@ lorelei_ru['ru'] = {
     'docs':os.path.join(data_path,'lorelei/il8/ru/corpus.txt'),
     'labels':os.path.join(data_path,'lorelei/il8/ru/labels.txt'),
     'train':os.path.join(data_path,'lorelei/il8/ru/splits/train-401.txt'),
-    'test':os.path.join(data_path,'lorelei/il8/ru/splits/test-37.txt'),
-    'max_vocab':1000,
-    'max_df':1.0    
+    'dev':os.path.join(data_path,'lorelei/il8/ru/splits/dev-37.txt'),
+    'max_vocab':6000,
+    'max_df':0.7    
 }
 
 lorelei_ru['en'] = {
     'docs':os.path.join(data_path,'lorelei/il8/en/corpus.txt'),
     'labels':os.path.join(data_path,'lorelei/il8/en/labels.txt'),
     'train':os.path.join(data_path,'lorelei/il8/en/splits/train-8096.txt'),
-    'test':os.path.join(data_path,'lorelei/il8/en/splits/test-172.txt'),
-    'max_vocab':1000,
-    'max_df':1.0    
+    'dev':os.path.join(data_path,'lorelei/il8/en/splits/dev-172.txt'),
+    'max_vocab':6000,
+    'max_df':0.6    
 }
 
 wiki_shorts = {'en': wiki_shorts_en, 'zh': wiki_shorts_zh}
@@ -64,13 +64,13 @@ def read_text(file, num=False):
         data = [int(i) for i in data]
     return data
 
-def prepare_data(files, language, debug, dev_size=100):
+def prepare_data(files, language, debug):
     print('\npreparing data')
     # parse files
     docs = read_text(files['docs'])
     labels = read_text(files['labels'], num=True)
     train = read_text(files['train'], num=True)
-    test = read_text(files['test'], num=True)
+    dev = read_text(files['dev'], num=True)
     stopwords = read_text(stopword_files[language])
 
     if debug:
@@ -81,30 +81,23 @@ def prepare_data(files, language, debug, dev_size=100):
         max_df = files['max_df']
 
     # split data 
-    dev = train[-dev_size:]
-    train = train[:-dev_size]
     docs_train = [docs[i] for i in train]
     docs_dev = [docs[i] for i in dev]
-    docs_test = [docs[i] for i in test]
 
     labels_train = [labels[i] for i in train]
     labels_dev = [labels[i] for i in dev]
-    labels_test = [labels[i] for i in test]
 
     # preprocess docs
     word_doc_train, word_doc_dev, word_doc_test, index, vocab = \
-        vectorize(docs_train, stopwords, language, max_vocab, max_df, docs_dev, docs_test)
+        vectorize(docs_train, stopwords, language, max_vocab, max_df, docs_dev)
 
     data = {}
     print('\nTrain size: {}'.format(word_doc_train.shape))
     data['word_doc_train'] = word_doc_train
     print('Dev size: {}'.format(word_doc_dev.shape))
     data['word_doc_dev'] = word_doc_dev
-    print('Test size: {}'.format(word_doc_test.shape))
-    data['word_doc_test'] = word_doc_test
     data['labels_train'] = labels_train
     data['labels_dev'] = labels_dev
-    data['labels_test'] = labels_test
     print('Vocab size: {}'.format(len(index)))
     data['index'] = index
     data['vocab'] = vocab

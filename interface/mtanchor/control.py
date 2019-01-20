@@ -1,10 +1,15 @@
-from . import data, utils 
+from . import data, utils, infer 
 import anchor_topic.topics
+import numpy
+from sklearn.svm import LinearSVC
+from sklearn.metrics import f1_score
+
+
 
 DEBUG = True
 language1 = 'en'
 language2 = 'ru'
-K = 5
+K = 10
 SEED = 34
 TOP = 15
 
@@ -18,10 +23,11 @@ def start():
         M2=data2['word_doc_train'],
         k=K,
         threshold1=0.008,
-        threshold2=0.008,
+        threshold2=0.01,
         dictionary=dct['index_map'],
         seed=SEED
     )
+
 
     start_data = {}
     start_data['words1'] = utils.get_top_topic_words(A1, TOP, data1['vocab'])
@@ -36,9 +42,21 @@ def start():
     start_data['index2'] = data2['index']
     start_data['dict1'] = dct['dict1_2']
     start_data['dict2'] = dct['dict2_1']
+    start_data['M_dev1'] = data1['word_doc_dev']
+    start_data['M_dev2'] = data2['word_doc_dev']
+    start_data['Y_dev1'] = data1['labels_dev']
+    start_data['Y_dev2'] = data2['labels_dev']
 
+
+    print('evaluating')
+    scores = evaluate(A1, A2, start_data)
+    start_data['intra1'] = '{0:.2f}'.format(scores['intra1'])
+    start_data['cross1'] = '{0:.2f}'.format(scores['cross1'])
+    start_data['intra2'] = '{0:.2f}'.format(scores['intra2'])
+    start_data['cross2'] = '{0:.2f}'.format(scores['cross2'])
 
     return start_data
+
 
 def update(anchors1, anchors2, data):
     anchor_nums1 = utils.convert_2dlist(anchors1, data['index1'])
@@ -55,3 +73,37 @@ def update(anchors1, anchors2, data):
 
     return data
 
+def infer_topics(word_doc, word_topic):
+    """Infer topics for [word_doc], word distribution of documents,
+     using [word_topic], word distribution of topics.
+
+    """
+    topic_word = word_topic.T
+    return infer.variational_bayes(word_doc, topic_word)
+
+def train_classifier(X, Y):
+    print('train classifier')
+    clf = LinearSVC(class_weight = 'balanced', dual=False, random_state=SEED)
+    clf.fit(X, Y)
+    return clf
+
+
+def evaluate(A1, A2, data):
+    # infer topics from word_doc
+    X1 = infer_topics(data['M_dev1'], A1)
+    X2 = infer_topics(data['M_dev2'], A2)
+    clf1 = train_classifier(X1, data['Y_dev1'])
+    clf2 = train_classifier(X2, data['Y_dev2'])
+
+    scores = {}
+
+    Y_intra1 = clf1.predict(X1)
+    Y_cross1 = clf1.predict(X2)
+    Y_intra2 = clf2.predict(X2)
+    Y_cross2 = clf2.predict(X1)
+
+    scores['intra1'] = f1_score(data['Y_dev1'], Y_intra1, average='micro')
+    scores['cross1'] = f1_score(data['Y_dev2'], Y_cross1, average='micro')
+    scores['intra2'] = f1_score(data['Y_dev2'], Y_intra2, average='micro')
+    scores['cross2'] = f1_score(data['Y_dev1'], Y_cross2, average='micro')
+    return scores 

@@ -1,6 +1,7 @@
 import numpy
 import json
 from interface.models import User, Update, Start
+from scipy import sparse
 
 def combine_to_topics(data):
     topics = []
@@ -44,13 +45,24 @@ def from_json(j):
     return obj
 
 def numpy_to_json(array):
+    print(type(array))
     l = array.tolist()
     return to_json(l)
+
+def scipy_to_json(matrix):
+    a = matrix.toarray()
+    return numpy_to_json(a)
+
 
 def json_to_numpy(j):
     l = from_json(j)
     a = numpy.array(l)
     return a
+
+def json_to_scipy(j):
+    a = json_to_numpy(j)
+    return sparse.csc_matrix(a)
+
 
 def data_to_start_obj(start_data):
     s = Start(
@@ -60,12 +72,21 @@ def data_to_start_obj(start_data):
         vocab1 = to_json(start_data['vocab1']),
         index1 = to_json(start_data['index1']),
         dict1 = to_json(start_data['dict1']),
+        M_dev1 = scipy_to_json(start_data['M_dev1']),
+        Y_dev1 = to_json(start_data['Y_dev1']),
         anchors2 = list2d_to_string(start_data['anchors2']),
         topics2 = list2d_to_string(start_data['words2']),
         Q2 = numpy_to_json(start_data['Q2']),
         vocab2 = to_json(start_data['vocab2']),
         index2 = to_json(start_data['index2']),
-        dict2 = to_json(start_data['dict2'])
+        dict2 = to_json(start_data['dict2']),
+        M_dev2 = scipy_to_json(start_data['M_dev2']),
+        Y_dev2 = to_json(start_data['Y_dev2']),
+        intra1 = start_data['intra1'],
+        cross1 = start_data['cross1'],
+        intra2 = start_data['intra2'],
+        cross2 = start_data['cross2'],
+
     )
 
     return s
@@ -89,6 +110,15 @@ def db_data_to_topics(db_data):
 
     return topics 
 
+def db_data_to_scores(db_data):
+    scores = {}
+    scores['intra1'] = db_data.intra1
+    scores['cross1'] = db_data.cross1
+    scores['intra2'] = db_data.intra2
+    scores['cross2'] = db_data.cross2
+    return scores
+
+
 def start_data_to_control(start_data):
     data = {}
     data['vocab1'] = from_json(start_data.vocab1) 
@@ -97,6 +127,10 @@ def start_data_to_control(start_data):
     data['index2'] = from_json(start_data.index2) 
     data['Q1'] = json_to_numpy(start_data.Q1)
     data['Q2'] = json_to_numpy(start_data.Q2)
+    data['M_dev1'] = json_to_scipy(start_data.M_dev1)
+    data['M_dev2'] = json_to_scipy(start_data.M_dev2)
+    data['Y_dev1'] = json_to_numpy(start_data.Y_dev1)
+    data['Y_dev2'] = json_to_numpy(start_data.Y_dev2)
     return data
 
 def data_to_update_obj(data, uid):

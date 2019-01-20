@@ -10,6 +10,12 @@ $(function(){
     // hide loader
     $(".load").hide()
 
+    // load ID
+    $.get("/uid").done(function(data) {
+        var uid = data["uid"];
+        $("#uid").text("User ID: "+uid);
+    });
+
     // enable sortable anchor words
     $(".l1.anchors").sortable({connectWith:".l1.anchors"});
     $(".l2.anchors").sortable({connectWith:".l2.anchors"});

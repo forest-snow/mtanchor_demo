@@ -46,8 +46,9 @@ def index():
         start_data = Start.query.first()
 
         topics = convert.db_data_to_topics(start_data)
+        scores = convert.db_data_to_scores(start_data)
 
-    return flask.render_template('index.html', topics=topics)
+    return flask.render_template('index.html', topics=topics, scores=scores)
 
 
 @app.route('/update', methods=['POST'])
@@ -127,6 +128,12 @@ def autocomplete():
     limit = min(len(suggestions), 8)
     choices = suggestions[:limit]
     return flask.jsonify(choices=choices)
+
+
+@app.route('/uid')
+def get_uid():
+    return flask.jsonify(uid=flask.session['uid'])
+
 
 
 

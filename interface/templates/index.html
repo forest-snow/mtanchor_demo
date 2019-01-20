@@ -1,7 +1,8 @@
 
 {% extends "base.html" %}
     {% block content %}
-        <h2 class="text-center mb-4">MTAnchor</h2>
+        <h2 class="text-center">MTAnchor</h2>
+        <h4 id="uid" class="text-center mb-4">User ID: </h4>
 
         <div class="d-flex justify-content-center" class="load">
             <i class="fa fa-spinner fa-5x align-self-center load"></i>
@@ -15,9 +16,15 @@
             <div class="row mb-4">
                 <div class="col-6">
                     <h4 class="text-left">Language 1</h4>
+                    <h6 class="text-left">Intralingual score: {{scores.intra1}}</h6>
+                    <h6 class="text-left">Crosslingual score: {{scores.cross1}}</h6>
+
                 </div>
                 <div class="col-6">
                     <h4 class="text-right">Language 2</h4>
+                    <h6 class="text-right">Intralingual score: {{scores.intra2}}</h6>
+                    <h6 class="text-right">Crosslingual score: {{scores.cross2}}</h6>
+
                 </div>
             </div>
             {% for topic in topics %}
@@ -60,12 +67,13 @@
                     <button class="btn btn-sm btn-light m-2" id="update">Update</button>
                     <button class="btn btn-sm btn-light m-2" id="add">Add Topic</button>
                     <a href="{{url_for('restart')}}" class="btn btn-sm btn-light m-2" id="restart">Restart</a>
-                    <!-- <a href="{{url_for('finish')}}" class="btn btn-sm btn-light m-2" id="finish">Finish</a> -->
+                    <a href="{{url_for('finish')}}" class="btn btn-sm btn-light m-2" id="finish">Finish</a>
+
                 </div>
                 <div class="col-4 d-inline-block">
-                    <h5 id="translation" class="navbar-text text-white ml-4">
+                    <h6 id="translation" class="navbar-text text-white ml-4">
                         Translation:
-                    </h5>
+                    </h6>
                 </div>
                 <div class="col-2 d-inline-block">
                     <input id="search" class="form-control form-control-sm" type="text" placeholder="Search words">
