@@ -117,7 +117,7 @@ def autocomplete():
     start_data = Start.query.first()
     vocab1, vocab2 = convert.start_data_to_vocab(start_data)
     query = flask.request.args.get('query')
-    suggestions = [];
+    suggestions = []
     for word in vocab1:
         if word.startswith(query):
             suggestions.append({'label':word, 'language':'l1'})

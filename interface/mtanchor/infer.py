@@ -8,7 +8,6 @@ import multiprocessing.pool
 
 
 def variational_bayes(word_doc, topic_word):
-    print('inferring topics')
     n_topics = topic_word.shape[0]
     n_words, n_docs = word_doc.shape
     model = vbLDA(n_docs, n_words, n_topics, topic_word)

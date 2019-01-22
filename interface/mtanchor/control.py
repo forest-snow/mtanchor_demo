@@ -22,7 +22,7 @@ def start():
         M1=data1['word_doc_train'], 
         M2=data2['word_doc_train'],
         k=K,
-        threshold1=0.008,
+        threshold1=0.007,
         threshold2=0.01,
         dictionary=dct['index_map'],
         seed=SEED

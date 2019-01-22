@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 7c1c7918be35
+Revision ID: 832ad7a3b174
 Revises: 
-Create Date: 2019-01-19 13:11:04.075333
+Create Date: 2019-01-22 18:05:16.061050
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '7c1c7918be35'
+revision = '832ad7a3b174'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -26,16 +26,25 @@ def upgrade():
     sa.Column('vocab1', sa.String(), nullable=True),
     sa.Column('index1', sa.String(), nullable=True),
     sa.Column('dict1', sa.String(), nullable=True),
+    sa.Column('M_dev1', sa.String(), nullable=True),
+    sa.Column('Y_dev1', sa.String(), nullable=True),
     sa.Column('anchors2', sa.String(), nullable=True),
     sa.Column('topics2', sa.String(), nullable=True),
     sa.Column('Q2', sa.String(), nullable=True),
     sa.Column('vocab2', sa.String(), nullable=True),
     sa.Column('index2', sa.String(), nullable=True),
     sa.Column('dict2', sa.String(), nullable=True),
+    sa.Column('M_dev2', sa.String(), nullable=True),
+    sa.Column('Y_dev2', sa.String(), nullable=True),
+    sa.Column('intra1', sa.String(), nullable=True),
+    sa.Column('cross1', sa.String(), nullable=True),
+    sa.Column('intra2', sa.String(), nullable=True),
+    sa.Column('cross2', sa.String(), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('user',
     sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('time', sa.DateTime(), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('update',
@@ -45,6 +54,11 @@ def upgrade():
     sa.Column('topics1', sa.String(), nullable=True),
     sa.Column('topics2', sa.String(), nullable=True),
     sa.Column('user_id', sa.Integer(), nullable=True),
+    sa.Column('intra1', sa.String(), nullable=True),
+    sa.Column('cross1', sa.String(), nullable=True),
+    sa.Column('intra2', sa.String(), nullable=True),
+    sa.Column('cross2', sa.String(), nullable=True),
+    sa.Column('time', sa.DateTime(), nullable=True),
     sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
