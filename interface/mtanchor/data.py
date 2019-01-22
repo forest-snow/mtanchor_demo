@@ -1,7 +1,7 @@
 from .preprocess import vectorize
 import os
 
-data_path = '/Users/myuan/data/'
+data_path = os.path.join(os.getcwd(), 'data/')
 
 stopword_files = {
     'en':os.path.join(data_path,'stopwords/stopwords_en.txt'),
@@ -30,19 +30,19 @@ wiki_shorts_zh = {
 lorelei_ru = {}
 
 lorelei_ru['ru'] = {
-    'docs':os.path.join(data_path,'lorelei/il8/ru/corpus.txt'),
-    'labels':os.path.join(data_path,'lorelei/il8/ru/labels.txt'),
-    'train':os.path.join(data_path,'lorelei/il8/ru/splits/train-401.txt'),
-    'dev':os.path.join(data_path,'lorelei/il8/ru/splits/dev-37.txt'),
+    'docs':os.path.join(data_path,'ru/corpus.txt'),
+    'labels':os.path.join(data_path,'ru/labels.txt'),
+    'train':os.path.join(data_path,'ru/splits/train-401.txt'),
+    'dev':os.path.join(data_path,'ru/splits/dev-37.txt'),
     'max_vocab':5000,
     'max_df':0.2    
 }
 
 lorelei_ru['en'] = {
-    'docs':os.path.join(data_path,'lorelei/il8/en/corpus.txt'),
-    'labels':os.path.join(data_path,'lorelei/il8/en/labels.txt'),
-    'train':os.path.join(data_path,'lorelei/il8/en/splits/train-8096.txt'),
-    'dev':os.path.join(data_path,'lorelei/il8/en/splits/dev-172.txt'),
+    'docs':os.path.join(data_path,'en/corpus.txt'),
+    'labels':os.path.join(data_path,'en/labels.txt'),
+    'train':os.path.join(data_path,'en/splits/train-8096.txt'),
+    'dev':os.path.join(data_path,'en/splits/dev-172.txt'),
     'max_vocab':5000,
     'max_df':0.04    
 }
@@ -51,7 +51,7 @@ wiki_shorts = {'en': wiki_shorts_en, 'zh': wiki_shorts_zh}
 lorelei = {'ru': lorelei_ru}
 
 dictionary_zh_en = os.path.join(data_path,'dictionary/cedict.txt')
-dictionary_ru_en = os.path.join(data_path,'lorelei/il8/ru_en_dict.txt')
+dictionary_ru_en = os.path.join(data_path,'ru_en_dict.txt')
 
 def read_text(file, num=False):
     """ Read from txt [file].
