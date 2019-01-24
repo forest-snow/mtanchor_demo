@@ -34,6 +34,7 @@ lorelei_ru['ru'] = {
     'labels':os.path.join(data_path,'ru/labels.txt'),
     'train':os.path.join(data_path,'ru/splits/train-401.txt'),
     'dev':os.path.join(data_path,'ru/splits/dev-37.txt'),
+    'test':os.path.join(data_path, 'ru/splits/test-37.txt'),
     'max_vocab':5000,
     'max_df':0.2    
 }
@@ -43,6 +44,7 @@ lorelei_ru['en'] = {
     'labels':os.path.join(data_path,'en/labels.txt'),
     'train':os.path.join(data_path,'en/splits/train-8096.txt'),
     'dev':os.path.join(data_path,'en/splits/dev-172.txt'),
+    'test':os.path.join(data_path, 'en/splits/test-172.txt'),
     'max_vocab':5000,
     'max_df':0.04    
 }
@@ -64,13 +66,13 @@ def read_text(file, num=False):
         data = [int(i) for i in data]
     return data
 
-def prepare_data(files, language, debug):
+def prepare_data(files, language, debug, test):
     print('\npreparing data')
     # parse files
     docs = read_text(files['docs'])
     labels = read_text(files['labels'], num=True)
     train = read_text(files['train'], num=True)
-    dev = read_text(files['dev'], num=True)
+    dev = read_text(files[test], num=True)
     stopwords = read_text(stopword_files[language])
 
     if debug:
@@ -121,10 +123,10 @@ def wiki_data(language1='en', language2='zh', debug=False):
     data2 = prepare_data(wiki_shorts['zh'], language2, debug)
     return data1, data2
 
-def lorelei_data(language='ru', debug=False):
+def lorelei_data(language='ru', debug=False, test='dev'):
     dataset = lorelei[language]
-    data1 = prepare_data(dataset['en'], 'en', debug)
-    data2 = prepare_data(dataset[language], language, debug)
+    data1 = prepare_data(dataset['en'], 'en', debug, test)
+    data2 = prepare_data(dataset[language], language, debug, test)
     return data1, data2 
 
 

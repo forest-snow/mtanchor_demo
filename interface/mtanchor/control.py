@@ -15,7 +15,7 @@ TOP = 15
 
 
 def start():
-    data1, data2 = data.lorelei_data(language2, DEBUG)
+    data1, data2 = data.lorelei_data(language2, DEBUG, 'dev')
     dct = data.prepare_dictionary(data1['index'], data2['index'])
 
     A1, A2, Q1, Q2, anchors1, anchors2 = anchor_topic.topics.model_multi_topics(

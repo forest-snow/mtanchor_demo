@@ -118,6 +118,8 @@ def autocomplete():
     vocab1, vocab2 = convert.start_data_to_vocab(start_data)
     query = flask.request.args.get('query')
     suggestions = []
+    print('\n\nQUERY')
+    print(query)
     for word in vocab1:
         if word.startswith(query):
             suggestions.append({'label':word, 'language':'l1'})
@@ -128,6 +130,8 @@ def autocomplete():
 
     limit = min(len(suggestions), 8)
     choices = suggestions[:limit]
+    print('\n\nFOUND')
+    print(choices)
     return flask.jsonify(choices=choices)
 
 

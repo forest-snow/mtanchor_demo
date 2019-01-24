@@ -145,23 +145,23 @@ $(function(){
 
 
     // translating words on mouseover
-    var mouseOver = function(ev) {
-       var text = $(ev.target).text();
+    // var mouseOver = function(ev) {
+    //    var text = $(ev.target).text();
 
-        // get translation
-        $.get("/translate", {text: text, in_corpus:false})
-            .done(function(data) {
-                var translation = data['translation'];
-                if (translation !== 'N/A') {
-                    $("#translation").text("Translation: "+translation);
+    //     get translation
+    //     $.get("/translate", {text: text, in_corpus:false})
+    //         .done(function(data) {
+    //             var translation = data['translation'];
+    //             if (translation !== 'N/A') {
+    //                 $("#translation").text("Translation: "+translation);
 
-                } else {
-                    $("#translation").text("Translation: ");
-                }
-            });
-    };
+    //             } else {
+    //                 $("#translation").text("Translation: ");
+    //             }
+    //         });
+    // };
 
-    $("#topics").on("mouseover", ".anchor, .word", mouseOver)
+    // $("#topics").on("mouseover", ".anchor, .word", mouseOver)
 
 
     // highlight ocurrences of word and its translation once clicked
@@ -180,18 +180,18 @@ $(function(){
 
         // highlight translations
 
-        $.get("/translate", {text: text, in_corpus:false})
-            .done(function(data) {
-                var translation = data['translation'];
-                if (translation !== 'N/A') {
-                    $(".word, .anchor").filter( function() { 
-                        return ($(this).text() === translation)
-                    })
-                        .addClass("highlight");
+        // $.get("/translate", {text: text, in_corpus:false})
+        //     .done(function(data) {
+        //         var translation = data['translation'];
+        //         if (translation !== 'N/A') {
+        //             $(".word, .anchor").filter( function() { 
+        //                 return ($(this).text() === translation)
+        //             })
+        //                 .addClass("highlight");
 
 
-                };
-            });
+        //         };
+        //     });
 
     };
     
