@@ -40,6 +40,7 @@ def get_data():
     topic_data['Y_dev2'] = data2['labels_dev']
     return topic_data
 
+
 if __name__ == '__main__':
 
 
@@ -52,6 +53,13 @@ if __name__ == '__main__':
 
 
     all_scores = []
+    
+    anchors1 = preprocess(start.anchors1)
+    anchors2 = preprocess(start.anchors2)
+    first_scores = classify(anchors1, anchors2, topic_data)
+    first_scores['time'] = 0
+    all_scores.append(first_scores)
+
     for update in updates:
         anchors1 = preprocess(update.anchors1)
         anchors2 = preprocess(update.anchors2)
